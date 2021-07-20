@@ -1,4 +1,4 @@
-import Litepicker from 'litepicker';
+
 
 let tabs = document.querySelectorAll(".tabs li a");
 tabs.forEach((elem,idx) => {
@@ -11,9 +11,4 @@ tabs.forEach((elem,idx) => {
       }
     })
   })
-})
-
-const calendar = document.getElementById('check-in-out');
-calendar.addEventListener('click',()=>{
-  console.log('clicked!!!')
 })
