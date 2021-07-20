@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Widget</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="widget">
+      <ul class="tabs">
+        <li>
+          <a class="active" href="#">HOTEL + AIR</a>
+        </li>
+        <li>
+          <a href="#">HOTEL ONLY</a>
+        </li>
+      </ul>
+      <div class="form-input d-flex col-md-12 row m-0">
+        <div class="form__group field col-md-3">
+          <input type="text" class="form__field" id="airport" placeholder="Please enter your airport">
+          <label for="airport" class="form__label">Please enter your airport</label>
+        </div>
+        <div class="check-in-out col-md-5" id="check-in-out">
+          <div class="check-in">
+            <span class="check-in-label">CHECK-IN</span>
+            <span class="check-in-date">27-JUN-21</span>
+          </div>
+          <span class="check-in-out-arrow">⇌</span>
+          <div class="check-out">
+            <span class="check-out-label">CHECK-OUT</span>
+            <span class="check-out-date">31-AUG-21</span>
+          </div>
+        </div>
+        <div class="dropdown-wrapper col-md-4">
+          <div class="dropdown__field">
+            <div class="field-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="selectdiv">
+              <label>
+                <select name="" id="">
+                  <option selected>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="dropdown__field">
+            <div class="field-icon">
+              <i class="fas fa-child"></i>
+            </div>
+            <div class="selectdiv">
+              <label>
+                <select name="" id="">
+                  <option selected>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="button-container col-md-12">
+          <a class="post" href="#">
+            <h2 class="post-title">Find Rates</h2>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    // (function(r,o,i){
+    //     console.log("r: ",r);
+    //     console.log("o: ",o);
+    //     console.log("i: ",i);
+    //     var h = r.getElementsByTagName(o)[0];
+    //     console.log("h: ",h);
+    //     var e = r.createElement(o);
+    //     console.log("e: ",e);
+    //     e.src='https://booking.thefiveshotels.com/en/roi-widgets/engine.js?lang=en';
+    //     h.parentNode.insertBefore(e,h);
+    // })(document,'script','');
+</script>
+<script src="./index.js" type="module" defer></script>
+</body>
+</html>
