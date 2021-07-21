@@ -1,9 +1,16 @@
 //Set this when DOM is loaded
 document.addEventListener('DOMContentLoaded',() => {
   const setStartDate = moment(new Date()).format("D-MMM-YY");
-  const setEndDate = moment(new Date()).add('days',1).format("D-MMM-YY");
-  document.getElementById('check-in-date').innerHTML = setStartDate;
-  document.getElementById('check-out-date').innerHTML = setEndDate;
+  const setEndDate = moment(new Date()).add(1,'days').format("D-MMM-YY");
+  const spans_check_in_tab1 = document.getElementById('check-in-date-tab1');
+  const spans_check_out_tab1 = document.getElementById('check-out-date-tab1');
+  const spans_check_in_tab2 = document.getElementById('check-in-date-tab2');
+  const spans_check_out_tab2 = document.getElementById('check-out-date-tab2');
+  //setting up dates to both tabs
+  spans_check_in_tab1.innerHTML = setStartDate;
+  spans_check_out_tab1.innerHTML = setEndDate;
+  spans_check_in_tab2.innerHTML = setStartDate;
+  spans_check_out_tab2.innerHTML = setEndDate;
 })
 
 
@@ -13,6 +20,14 @@ tabs.forEach((elem,idx) => {
   elem.addEventListener('click',() => {
     if(elem.classList.contains('active')) return false;
     elem.className += ' active';
+    if(elem.classList.contains('tab1')){
+      document.getElementsByClassName('body-tab1')[0].className += ' show-active-tab';
+      document.getElementsByClassName('body-tab2')[0].classList.remove('show-active-tab');
+    }else if(elem.classList.contains('tab2')){
+      document.getElementsByClassName('body-tab2')[0].className += ' show-active-tab';
+      document.getElementsByClassName('body-tab1')[0].classList.remove('show-active-tab');
+      
+    }
     tabs.forEach((ell,idy)=>{
       if(idx !== idy) {
         ell.classList.remove('active');
@@ -25,8 +40,6 @@ tabs.forEach((elem,idx) => {
 const popup = document.getElementById('myModal');
 const btncheckinout = document.getElementById('check-in-out');
 const close = document.getElementsByClassName("close")[0];
-
-
 
 // DatePicker
 const picker = new Litepicker({ 
@@ -48,30 +61,19 @@ const picker = new Litepicker({
       popup.style.display = "none"; //closing popup
       const setStartDate = moment(datestart).format("D-MMM-YY");
       const setEndDate = moment(dateend).format("D-MMM-YY");
-      document.getElementById('check-in-date').innerHTML = setStartDate;
-      document.getElementById('check-out-date').innerHTML = setEndDate;
+      document.getElementById('check-in-date-tab1').innerHTML = setStartDate;
+      document.getElementById('check-out-date-tab1').innerHTML = setEndDate;
     });
   },
 });
 
-picker.DateTime();
-
-// return DateTime object
-// const datepicker = document.createElement(picker.DateTime());
-// document.body.insertBefore(datepicker,popup);
+// picker.DateTime();
 
 btncheckinout.addEventListener('click',()=>{
   popup.style.display = "block";
   picker.show();
 });
-// document.getElementById('get-date').addEventListener('click', ()=>{
-  // const {dateInstance:start} = picker.getStartDate()
-  // const {dateInstance:end} = picker.getEndDate()
-  // console.log({start,end})
-// })
-// close.addEventListener('click',()=>{
-//   popup.style.display = "none";
-// });
+
 window.addEventListener('click',(e)=>{
   if (e.target == popup) {
     popup.style.display = "none";
