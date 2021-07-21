@@ -36,10 +36,9 @@ tabs.forEach((elem,idx) => {
   })
 })
 
-// Popup
-const popup = document.getElementById('myModal');
+// Popup - TAB1
+const popup1 = document.getElementById('myModal1');
 const btncheckinout = document.getElementById('check-in-out');
-const close = document.getElementsByClassName("close")[0];
 
 // DatePicker
 const picker = new Litepicker({ 
@@ -58,7 +57,7 @@ const picker = new Litepicker({
     picker.on('selected', () => {
       const {dateInstance:datestart} = picker.getStartDate()
       const {dateInstance:dateend} = picker.getEndDate()
-      popup.style.display = "none"; //closing popup
+      popup1.style.display = "none"; //closing popup
       const setStartDate = moment(datestart).format("D-MMM-YY");
       const setEndDate = moment(dateend).format("D-MMM-YY");
       document.getElementById('check-in-date-tab1').innerHTML = setStartDate;
@@ -66,16 +65,55 @@ const picker = new Litepicker({
     });
   },
 });
-
 // picker.DateTime();
-
 btncheckinout.addEventListener('click',()=>{
-  popup.style.display = "block";
+  popup1.style.display = "block";
   picker.show();
 });
 
 window.addEventListener('click',(e)=>{
-  if (e.target == popup) {
-    popup.style.display = "none";
+  if (e.target == popup1) {
+    popup1.style.display = "none";
+  }
+})
+
+// Popup - TAB2
+const popup2 = document.getElementById('myModal2');
+const btncheckinout2 = document.querySelector('.body-tab2 .check-in-out');
+
+// DatePicker
+const picker2 = new Litepicker({ 
+  element: document.getElementById('modal-content2'),
+  singleMode: false,
+  tooltipText: {
+    one: 'night',
+    other: 'nights'
+  },
+  numberOfColumns:2,
+  numberOfMonths:2,
+  tooltipNumber: (totalDays) => {
+    return totalDays - 1;
+  },
+  setup: (picker) => {
+    picker.on('selected', () => {
+      const {dateInstance:datestart} = picker.getStartDate()
+      const {dateInstance:dateend} = picker.getEndDate()
+      popup2.style.display = "none"; //closing popup
+      const setStartDate = moment(datestart).format("D-MMM-YY");
+      const setEndDate = moment(dateend).format("D-MMM-YY");
+      document.getElementById('check-in-date-tab2').innerHTML = setStartDate;
+      document.getElementById('check-out-date-tab2').innerHTML = setEndDate;
+    });
+  },
+});
+// picker.DateTime();
+btncheckinout2.addEventListener('click',()=>{
+  popup2.style.display = "block";
+  picker2.show();
+});
+
+window.addEventListener('click',(e)=>{
+  if (e.target == popup2) {
+    popup2.style.display = "none";
   }
 })

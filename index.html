@@ -27,13 +27,13 @@
       </ul>
       <div class="form-input d-flex col-md-12 row m-0 body-tab1 show-active-tab">
         <div class="form__group field col-md-3">
-          <input type="text" class="form__field" id="airport" placeholder="Please enter your airport">
+          <input type="text" class="form__field" id="airport" placeholder="Please enter your airport" autocomplete="off" required>
           <label for="airport" class="form__label">Please enter your airport</label>
         </div>
-        <div class="check-in-out col-md-5" id="check-in-out">
+        <div class="check-in-out col-md-4" id="check-in-out">
           <div class="check-in">
             <span class="check-in-label">CHECK-IN</span>
-            <span class="check-out-date" id="check-in-date-tab1"></span>
+            <span class="check-in-date" id="check-in-date-tab1"></span>
           </div>
           <span class="check-in-out-arrow">⇌</span>
           <div class="check-out">
@@ -41,7 +41,7 @@
             <span class="check-out-date" id="check-out-date-tab1"></span>
           </div>
         </div>
-        <div class="dropdown-wrapper col-md-4">
+        <div class="dropdown-wrapper col-md-5">
           <div class="dropdown__field">
             <div class="field-icon">
               <i class="fas fa-user"></i>
@@ -77,10 +77,26 @@
             </div>
           </div>
         </div>
-        <div class="button-container col-md-12">
-          <a class="post" href="#">
-            <h2 class="post-title">Find Rates</h2>
-          </a>
+        <div class="col-md-12 row m-0 p-0">
+          <div class="form__group field col-md-3">
+            <input type="text" class="form__field" id="promocode" placeholder="Promo Code" autocomplete="off">
+            <label for="promocode" class="form__label">Promo Code</label>
+          </div>
+          <div class="form__group field col-md-4">
+            <input type="text" class="form__field" id="airport" placeholder="Agency/Group" autocomplete="off">
+            <label for="agencygroup" class="form__label">Agency/Group</label>
+          </div>
+          <div class="col-md-5 p-0">
+            <div class="button-container">
+              <a class="post" href="#">
+                <h2 class="post-title">Find Rates</h2>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="myModal1" class="modal">
+          <div class="modal-content" id="modal-content">
+          </div>
         </div>
       </div>
       <div class="form-input d-flex col-md-12 row m-0 body-tab2">
@@ -131,16 +147,28 @@
             </div>
           </div>
         </div>
-        <div class="button-container col-md-12">
-          <a class="post" href="#">
-            <h2 class="post-title">Find Rates</h2>
-          </a>
+        <div class="col-md-12 row m-0 p-0">
+          <div class="form__group field col-md-3">
+            <input type="text" class="form__field" id="promocode" placeholder="Promo Code">
+            <label for="promocode" class="form__label">Promo Code</label>
+          </div>
+          <div class="form__group field col-md-4">
+            <input type="text" class="form__field" id="airport" placeholder="Agency/Group">
+            <label for="agencygroup" class="form__label">Agency/Group</label>
+          </div>
+          <div class="col-md-5 p-0">
+            <div class="button-container">
+              <a class="post" href="#">
+                <h2 class="post-title">Find Rates</h2>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="myModal2" class="modal">
+          <div class="modal-content" id="modal-content2">
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div id="myModal" class="modal">
-    <div class="modal-content" id="modal-content">
     </div>
   </div>
   <script>
