@@ -267,29 +267,15 @@ export default class Horizontal_BookingRH {
       })
       //Validating that every button returns true
       if (this.buttons.every(e => e === true)) {
-        console.log('entered')
         document.querySelectorAll('.btn-wrapper-rh-h .post').forEach(item => {
           item.addEventListener('click', e => {
-            var today = new Date();
-            today.setDate(today.getDate() + 5);
-            console.log(Date.parse(document.getElementById('checkin-HA').value) < Date.parse(today))
             if (e.target.id === 'btnSubmit-HA') {
-              if (Date.parse(document.getElementById('checkin-HA').value) < Date.parse(today)) {
-                alert('Packages must have be select at least 5 days from today.');
-                return false;
-              }
               const airport = document.getElementById('airport-hidden').value;
               if (airport === "") {
                 alert('Please select an airport');
                 return false;
               }
               document.getElementById('myform_HA_h').submit();
-            } else if (e.target.id === 'btnSubmit-HO'){
-              if (Date.parse(document.getElementById('checkin-HO').value) < Date.parse(today)) {
-                alert('Packages must have be select at least 5 days from today.');
-                return false;
-              }
-              document.getElementById('myform_HO_h').submit();
             }
           })
         });
