@@ -136,6 +136,7 @@
 .wrapper-rh-h .selectdiv {
   position: relative;
   width: 100%;
+  outline: none;
   /*Don't really need this just for demo styling*/  
   /* float: left;
   min-width: 200px;

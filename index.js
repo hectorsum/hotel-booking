@@ -281,60 +281,72 @@ export default class Horizontal_BookingRH {
         });
       }
       if (this.airport) {
-        axios.get('https://beta.reservhotel.com/smart_widget_mh/airports.json')
-          .then(res => {
-            const autoCompleteJS = new autoComplete({
-              placeHolder: "Please enter your airport",
-              selector: "#autoComplete",
-              data: {
-                src: res.data.airports,
-                keys: ["AI_NAME"],
-              },
-              resultsList: {
-                element: (list, data) => {
-                  if (!data.results.length) {
-                    // Create "No Results" message element
-                    const message = document.createElement("div");
-                    message.setAttribute("class", "no_result");
-                    message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
-                    list.prepend(message);
-                  }
-                },
-                noResults: true,
-                maxResults: 15,
-                tabSelect: true
-              },
-              resultItem: {
-                element: (item, data) => {
-                  // Modify Results Item Style
-                  item.style = "display: flex; justify-content: space-between;";
-                  // Modify Results Item Content
-                  item.innerHTML = `
-                  <span style="color:#181818; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-                    ${data.match}
-                  </span>
-                  <span style="display: flex; align-items: center; font-size: 13px; font-weight: 100; text-transform: uppercase; color: rgba(0,0,0,.2);">
-                    AIRPORT
-                  </span>`;
-                },
-                // highlight: true
-              },
-              events: {
-                input: {
-                  selection: (event) => {
-                    console.log(event.detail.selection.value.AI_NAME)
-                    const selection = event.detail.selection.value.AI_NAME;
-                    const airport_code = event.detail.selection.value.AI_ID;
-                    // let store_to_hidden = document.getElementById('airport-hidden').value;
-                    autoCompleteJS.input.value = selection;
-                    document.getElementById('airport-hidden').value = airport_code;
-                    console.log(document.getElementById('airport-hidden').value)
-                  }
-                }
+        const autocompleteInput = document.getElementById('autoComplete')
+        new autoComplete({
+          placeHolder: "Please enter your airport",
+          selector: "#autoComplete",
+          data: {
+            src: async (query) => {
+              try {
+                const source = await fetch(`https://www.reservhotel.com/win/owa/ibe5.get_airport_json?p_search=${autocompleteInput.value}`);
+                const airports = await source.json();
+                return airports;
+              } catch (error) {
+                return error;
               }
-            });
-          })
-          .catch(err => console.log(err))
+            },
+            keys: ["value", "label"],
+            cache: false,
+            filter: (list) => {
+              return list;
+            }
+          },
+          resultsList: {
+            element: (list, data) => {
+              // console.log('data: ',data);
+              if (!data.results.length) {
+                // Create "No Results" message element
+                const message = document.createElement("div");
+                message.setAttribute("class", "no_result");
+                message.innerHTML = `<span>Found No Results for "${data.query}"</span>`;
+                list.prepend(message);
+              }
+            },
+            noResults: true,
+            maxResults: 15,
+            tabSelect: true,
+          },
+          resultItem: {
+            element: (item, data) => {
+              // console.log('data: ', data)
+              // Modify Results Item Style
+              item.style = "display: flex; justify-content: space-between;";
+              // Modify Results Item Content
+              item.innerHTML = `
+                    <span style="color:#181818; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                    ${data.value.label}
+                    </span>
+                    <span style="display: flex; align-items: center; font-size: 13px; font-weight: 100; text-transform: uppercase; color: rgba(0,0,0,.2);">
+                      AIRPORT
+                    </span>`;
+            },
+            highlight: true
+          },
+          events: {
+            input: {
+              selection: (event) => {
+                // console.log(event.detail.selection.value.AI_NAME)
+                const selection = event.detail.selection.value.label;
+                const airport_code = event.detail.selection.value.value;
+                // let store_to_hidden = document.getElementById('airport-hidden').value;
+                const autoCompleteJS = document.getElementById('autoComplete');
+                autoCompleteJS.value = selection;
+                document.getElementById('airport-hidden').value = airport_code;
+                console.log(document.getElementById('airport-hidden').value)
+              }
+            }
+          }
+        });
 
       }
 
