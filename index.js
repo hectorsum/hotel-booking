@@ -271,11 +271,13 @@ export default class Horizontal_BookingRH {
           item.addEventListener('click', e => {
             if (e.target.id === 'btnSubmit-HA') {
               const airport = document.getElementById('airport-hidden').value;
-              if (airport === "") {
+              if (!airport) {
                 alert('Please select an airport');
                 return false;
               }
-              document.getElementById('myform_HA_h').submit();
+              document.getElementById('myform_HA_v').submit();
+            }else if (e.target.id === 'btnSubmit-HO'){
+              document.getElementById('myform_HO_v').submit();
             }
           })
         });
