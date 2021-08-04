@@ -142,6 +142,10 @@
   min-width: 200px;
   margin: 50px 33%; */
 }
+.selectdiv select {
+  border: none;
+  outline: none;
+}
 
 .wrapper-rh-h .selectdiv label {
   width:100%;
@@ -235,6 +239,7 @@ display: none;
   background-color: #FFF;
   cursor: pointer;
   border:none;
+  outline: none;
 }
 .wrapper-rh-h .post:before {
   position: absolute;

@@ -281,14 +281,13 @@ export default class Horizontal_BookingRH {
         });
       }
       if (this.airport) {
-        const autocompleteInput = document.getElementById('autoComplete')
         new autoComplete({
           placeHolder: "Please enter your airport",
           selector: "#autoComplete",
           data: {
             src: async (query) => {
               try {
-                const source = await fetch(`https://www.reservhotel.com/win/owa/ibe5.get_airport_json?p_search=${autocompleteInput.value}`);
+                const source = await fetch(`https://www.reservhotel.com/win/owa/ibe5.get_airport_json?p_search=${query}`);
                 const airports = await source.json();
                 return airports;
               } catch (error) {
@@ -298,7 +297,9 @@ export default class Horizontal_BookingRH {
             keys: ["value", "label"],
             cache: false,
             filter: (list) => {
-              return list;
+              //removing duplicates
+              const unique = [...new Map(list.map(item => [item['value'], item])).values()]
+              return unique;
             }
           },
           resultsList: {
@@ -493,7 +494,7 @@ export default class Horizontal_BookingRH {
     let promoCodeDiv = document.createElement('div');
     promoCodeDiv.className = 'form__group field col-lg-3'
     promoCodeDiv.innerHTML = `
-      <input type="text" class="form__field" id="promocode-${tabInitials}" placeholder="Promo Code" autocomplete="off">
+      <input type="text" name="PC" class="form__field" id="promocode-${tabInitials}" placeholder="Promo Code" autocomplete="off">
       <label for="promocode" class="form__label">Promo Code</label>
     `;
     bodytab.appendChild(promoCodeDiv);
@@ -504,7 +505,7 @@ export default class Horizontal_BookingRH {
     let agencyDiv = document.createElement('div');
     agencyDiv.className = 'form__group field col-lg-3'
     agencyDiv.innerHTML = `
-      <input type="text" name="agencygroup" class="form__field" id="agencygroup-${tabInitials}" placeholder="Agency/Group" autocomplete="off">
+      <input type="text" name="AFF" class="form__field" id="agencygroup-${tabInitials}" placeholder="Agency/Group" autocomplete="off">
       <label for="agencygroup-${tabInitials}" class="form__label">Agency/Group</label>
     `;
     bodytab.appendChild(agencyDiv);
@@ -740,23 +741,41 @@ export default class Horizontal_BookingRH {
   }
   setHotelInput(tabInitials, value) {
     if (!tabInitials) throw Error('Airport parameter must receive a tab initials. i.e: HO/HA')
+    const hotelid = this.getParameterByName('hotel',value);
     const bodytab = document.getElementById(`myform_${tabInitials}_h`);
     let input = document.createElement("input")
     input.type = 'hidden';
     input.name = 'hotel';
     input.id = `hotels-${tabInitials}-h`;
-    input.value = value;
+    input.value = hotelid;
     bodytab.appendChild(input);
   }
   setOptionTag(tabInitials, hotels) {
     let hotelsTemp = hotels;
     const dropdown = document.getElementById(`hotels-${tabInitials}-h`);
-    for (let i in hotelsTemp) {
+    for (let url in hotelsTemp) {
       var opt = document.createElement('option');
-      opt.value = i;
-      opt.innerHTML = hotelsTemp[i];
-      dropdown.appendChild(opt);
+      const hotelid = this.getParameterByName('hotel',url)
+      if(hotelid){
+        opt.value = hotelid;
+        opt.innerHTML = hotelsTemp[url];
+        dropdown.appendChild(opt);
+      }else{
+        try {
+          throw Error(`Please select the correct hotel url in ${tabInitials}`)
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
+  }
+  getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
   }
   gotoReservHotel(tabInitials) {
     console.log('Submitted')
