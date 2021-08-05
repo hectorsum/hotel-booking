@@ -275,9 +275,9 @@ export default class Horizontal_BookingRH {
                 alert('Please select an airport');
                 return false;
               }
-              document.getElementById('myform_HA_v').submit();
+              document.getElementById('myform_HA_h').submit();
             }else if (e.target.id === 'btnSubmit-HO'){
-              document.getElementById('myform_HO_v').submit();
+              document.getElementById('myform_HO_h').submit();
             }
           })
         });
